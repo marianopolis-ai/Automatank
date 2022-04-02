@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://Tank.tscn" type="PackedScene" id=1]
-[ext_resource path="res://PlayedControlledTank.gd" type="Script" id=2]
-
-[node name="PlayedControlledTank" type="Node2D"]
-script = ExtResource( 2 )
-
-[node name="Tank" parent="." instance=ExtResource( 1 )]

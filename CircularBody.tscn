@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/CircularBody.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 64.0
+
+[node name="CircularRigidBody" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 5
+linear_damp = 2.0
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "The circular body represents a tank or any projectile. 
+
+By default, it has a mass of 1, and a linear damp of 2. This means that all motion on the object decay in half a second.
+
+Importantly, circular bodies only has \"hard collisions\" with the walls, and they have \"soft collisions\" with each other. This means that they have a very strange behaviour between each other. To allow soft collisions, there must be a circular area that is also bound to the body itself that repels other circular bodies. 
+
+The rigid body itself will be placed on its own \"rigid body layer\", which ensures that they do not get scanned by anything to prevent them from colliding with each other. The areas will be placed on their own \"soft collision layer\", allowing them to influence other objects. The rigid bodies will scan for the soft collision layer to be repelled by them."
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 6
+space_override = 1
+gravity_point = true
+gravity_vec = Vector2( 0, 0 )
+gravity = -500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
