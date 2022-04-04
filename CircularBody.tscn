@@ -23,7 +23,7 @@ Importantly, circular bodies only has \"hard collisions\" with the walls, and th
 The rigid body itself will be placed on its own \"rigid body layer\", which ensures that they do not get scanned by anything to prevent them from colliding with each other. The areas will be placed on their own \"soft collision layer\", allowing them to influence other objects. The rigid bodies will scan for the soft collision layer to be repelled by them."
 }
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="RepulsionArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 6
 space_override = 1
@@ -31,8 +31,11 @@ gravity_point = true
 gravity_vec = Vector2( 0, 0 )
 gravity = -500.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RepulsionArea"]
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[connection signal="body_entered" from="RepulsionArea" to="." method="_on_another_body_entered"]
+[connection signal="body_exited" from="RepulsionArea" to="." method="_on_another_body_exited"]

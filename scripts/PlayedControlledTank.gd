@@ -23,3 +23,5 @@ func get_input():
 		accelerate(Vector2(0, -1))
 	if Input.is_action_pressed("down"):
 		accelerate(Vector2(0, 1))
+	if Input.is_action_just_pressed("shoot"):
+		shoot((get_global_mouse_position() - position).angle())

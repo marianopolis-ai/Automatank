@@ -3,7 +3,10 @@ extends "res://scripts/CircularBody.gd"
 
 # Strength of the movement of the tank.
 # TODO: allow upgrades for movement strength.
-const MOVEMENT_STRENGTH: float = 1000.0
+var movement_strength: float = 1000.0
+# Initial speed of the bullets that the tank shoots.
+# TODO: allow upgrades for bullet speed.
+var bullet_speed: float = 500.0
 
 # The acceleration (motion) that the player/script intends.
 var intended_acceleration: Vector2 = Vector2.ZERO
@@ -23,8 +26,12 @@ var cannon_stroke_colour = Color("#616161")
 # Orientation of the cannon, in radians.
 var cannon_orientation = 0.0
 
+var bullet_scene = preload("res://Bullet.tscn")
+
 func _ready():
-	pass # Replace with function body.
+	# Define the damage group by the tank's id to ensure uniqueness.
+	# This will be passed to the bullets that it creates.
+	damage_group = get_instance_id()
 
 
 # On update.
@@ -53,7 +60,7 @@ func accelerate(acceleration: Vector2):
 	
 	# Update the actual acceleration as the normalised acceleration multiplied 
 	# by the movement strength.
-	actual_acceleration = intended_acceleration.normalized() * MOVEMENT_STRENGTH
+	actual_acceleration = intended_acceleration.normalized() * movement_strength
 
 
 # Clears the intended and actual acceleration.
@@ -97,3 +104,37 @@ func _draw():
 	)
 	# Call the parent draw function here to have the cannon behind the tank.
 	._draw()
+	
+	# Draw the HP bar background
+	draw_rect(Rect2(
+		# Top left corner
+		Vector2(-radius, radius + 10),
+		# Width and height
+		Vector2(radius * 2, 10)
+	), Color.gray)
+	# Draw the HP bar
+	draw_rect(Rect2(
+		# Top left corner
+		Vector2(-radius + 1, radius + 11),
+		# Width multiplied by health ratio.
+		Vector2((radius * 2 - 2) * (health / max_health), 8)
+		# Interpolate healthiness with health ratio.
+	), Color.red.linear_interpolate(Color.green, health / max_health).darkened(0.2))
+
+
+# Spawns a bullet that belongs to the tank. Direction in radians.
+func shoot(direction):
+	# Make a new bullet
+	var bullet = bullet_scene.instance()
+	# Put it ahead of the tank
+	bullet.set_position(position + Vector2.RIGHT.rotated(direction) * radius * 1.5)
+	# Give it an initial velocity
+	bullet.linear_velocity = Vector2.RIGHT.rotated(direction) * bullet_speed
+	
+	# Give it this tank's damage group.
+	bullet.damage_group = damage_group
+	# Copy the tank's colour
+	bullet.inner_circle_colour = inner_circle_colour
+	
+	# Spawn the bullet
+	get_tree().get_root().add_child(bullet)
