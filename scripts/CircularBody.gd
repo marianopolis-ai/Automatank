@@ -12,44 +12,45 @@
 tool
 extends RigidBody2D
 
-# Global constant: the damage that a body takes per second per body that it's 
+
+# --------- Health ---------
+# Defines the health of the object. Can be overridden by inheritors.
+var health: float = 100.0
+var max_health: float = 100.0
+# Global constant: the damage that this body *takes* per second per body that it's 
 # overlapping with.
-var collision_damage = 150
+var collision_damage: float = 150.0
+
+
+# --------- Appearance ---------
+# The colour of the body. Can be overridden by inheritors.
+var inner_circle_colour: Color = Color("#2196f3")
+# The alpha value of the body.
+var transparency: float = 1.0
 # Bodies with health ratios less than this value will appear more and more
 # transparent as it loses health.
-var transparency_threshold = 0.5
-
-# Defines the health of the object. Can be overridden by inheritors.
-var health = 100.0
-var max_health = 100.0
-
-# The colour of the body. Can be overridden by inheritors.
-var inner_circle_colour = "#2196f3"
-# The alpha value of the body.
-var transparency = 1
-
+var transparency_threshold: float = 0.5
 # The size of the body. Can be overridden by inheritors.
-var radius = 64.0
+var radius: float = 64.0
 
+# --------- Collision Damage Handling ---------
 # The number of circular bodies that this is overlapping with.
-var overlap_count = 0
-
-
+var overlap_count: int = 0
 # Object belongs to a damage group. Objects in the same damage group do not 
 # damage each other.
-var damage_group = 0
+var damage_group: int = 0
 
 
 func _ready():
 	pass # Replace with function body.
 
 
-func set_max_health(new_max_health):
+func set_max_health(new_max_health: float):
 	max_health = new_max_health
 	health = new_max_health
 
 
-func set_radius(new_radius):
+func set_radius(new_radius: float):
 	radius = new_radius
 	$CollisionShape2D.shape.set_radius(radius)
 	$RepulsionArea/CollisionShape2D.shape.set_radius(radius)
@@ -95,13 +96,13 @@ func _draw():
 
 
 # Called when another rigid body enters the area.
-func _on_another_body_entered(body):
+func _on_another_body_entered(body: Node):
 	# if this is an unfriendly object
 	if "damage_group" in body and body.damage_group != damage_group:
 		overlap_count += 1
 
 # Called when another rigid body leaves the area.
-func _on_another_body_exited(body):
+func _on_another_body_exited(body: Node):
 	# if this is an unfriendly object
 	if "damage_group" in body and body.damage_group != damage_group:
 		overlap_count -= 1

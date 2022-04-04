@@ -1,6 +1,7 @@
 extends "res://scripts/CircularBody.gd"
 
 
+# --------- Stats ---------
 # Strength of the movement of the tank.
 # TODO: allow upgrades for movement strength.
 var movement_strength: float = 1000.0
@@ -17,23 +18,24 @@ var tank_max_health: float = 100.0
 # TODO: allow upgrades for regen
 var regen: float = 15.0
 
+
+# --------- Appearance ---------
+# Global: Size parameters of the cannon. These are purely cosmetic, the cannon does not
+# participate in collision.
+var cannon_half_width: float = 24.0
+var cannon_length: float = 128.0
+
+# --------- Colours ---------
+var cannon_fill_colour: Color = Color("#9e9e9e")
+var cannon_stroke_colour: Color = Color("#616161")
+
+# --------- Controls ---------
+# Orientation of the cannon, in radians.
+var cannon_orientation = 0.0
 # The acceleration (motion) that the player/script intends.
 var intended_acceleration: Vector2 = Vector2.ZERO
 # Normalised actual acceleration of the tank.
 var actual_acceleration: Vector2 = Vector2.ZERO
-
-
-# Size parameters of the cannon. These are purely cosmetic, the cannon does not
-# participate in collision.
-var cannon_half_width = 24.0
-var cannon_length = 128.0
-
-# Colour parameters of the cannon.
-var cannon_fill_colour = Color("#9e9e9e")
-var cannon_stroke_colour = Color("#616161")
-
-# Orientation of the cannon, in radians.
-var cannon_orientation = 0.0
 
 var bullet_scene = preload("res://Bullet.tscn")
 
@@ -138,7 +140,7 @@ func _draw():
 
 
 # Spawns a bullet that belongs to the tank. Direction in radians.
-func shoot(direction):
+func shoot(direction: float):
 	# Make a new bullet
 	var bullet = bullet_scene.instance()
 	
