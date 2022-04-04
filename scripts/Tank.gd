@@ -13,6 +13,9 @@ var bullet_health: float = 40.0
 # Initial health of the tank.
 # TODO: allow upgrades for max health.
 var tank_max_health: float = 100.0
+# Regeneration of the tank's health per second.
+# TODO: allow upgrades for regen
+var regen: float = 1.5
 
 # The acceleration (motion) that the player/script intends.
 var intended_acceleration: Vector2 = Vector2.ZERO
@@ -44,10 +47,9 @@ func _ready():
 
 
 # On update.
-func _process(delta: float):	
-	# Call the update method on process so the _draw() method gets called every
-	# frame.
-	update()
+func _process(delta: float):
+	# Heal and clamp to max health.
+	health = clamp(health + regen * delta, 0, max_health)
 
 
 # On physics update.
