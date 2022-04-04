@@ -16,7 +16,7 @@ var bullet_health: float = 40.0
 var tank_max_health: float = 100.0
 # Regeneration of the tank's health per second.
 # TODO: allow upgrades for regen
-var regen: float = 15.0
+var regen: float = 2.0
 
 
 # --------- Appearance ---------
