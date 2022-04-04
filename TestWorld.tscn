@@ -7,6 +7,9 @@
 
 [node name="PlayerTank" parent="." instance=ExtResource( 1 )]
 position = Vector2( 280, 256 )
+collision_layer = 2
+collision_mask = 5
+linear_damp = 2.0
 
 [node name="Tank" parent="." instance=ExtResource( 2 )]
 position = Vector2( 544, 256 )
