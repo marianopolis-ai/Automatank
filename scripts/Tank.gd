@@ -15,7 +15,7 @@ var bullet_health: float = 40.0
 var tank_max_health: float = 100.0
 # Regeneration of the tank's health per second.
 # TODO: allow upgrades for regen
-var regen: float = 1.5
+var regen: float = 15.0
 
 # The acceleration (motion) that the player/script intends.
 var intended_acceleration: Vector2 = Vector2.ZERO
@@ -48,8 +48,12 @@ func _ready():
 
 # On update.
 func _process(delta: float):
+	# The default maximum velocity of tanks is approximately 500.
+	# Make it such that tanks regen a lot less when they are moving.
+	var regen_factor = clamp(1 - linear_velocity.length_squared() / 150000, 0, 1)
+	
 	# Heal and clamp to max health.
-	health = clamp(health + regen * delta, 0, max_health)
+	health = clamp(health + regen * delta * regen_factor, 0, max_health)
 
 
 # On physics update.

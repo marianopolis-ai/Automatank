@@ -13,9 +13,3 @@ linear_damp = 2.0
 
 [node name="Tank" parent="." instance=ExtResource( 2 )]
 position = Vector2( 544, 256 )
-
-[node name="Tank2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 720, 256 )
-
-[node name="Tank3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 904, 256 )
