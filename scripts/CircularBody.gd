@@ -12,6 +12,12 @@
 tool
 extends RigidBody2D
 
+# Global constant: the damage that a body takes per second per body that it's 
+# overlapping with.
+var collision_damage = 150
+# Bodies with health ratios less than this value will appear more and more
+# transparent as it loses health.
+var transparency_threshold = 0.5
 
 # Defines the health of the object. Can be overridden by inheritors.
 var health = 100.0
@@ -19,15 +25,14 @@ var max_health = 100.0
 
 # The colour of the body. Can be overridden by inheritors.
 var inner_circle_colour = "#2196f3"
+# The alpha value of the body.
+var transparency = 1
 
 # The size of the body. Can be overridden by inheritors.
 var radius = 64.0
 
 # The number of circular bodies that this is overlapping with.
 var overlap_count = 0
-
-# The damage that a body takes per second per body that it's overlapping with.
-var collision_damage = 150
 
 
 # Object belongs to a damage group. Objects in the same damage group do not 
@@ -59,6 +64,14 @@ func _process(delta: float):
 	# Take the damage.
 	health -= overlap_count * collision_damage * delta
 	
+	# If the body's health is less than the threshold, it will become more and 
+	# more transparent.
+	var health_ratio = health / max_health
+	if health_ratio < transparency_threshold:
+		transparency = health_ratio / transparency_threshold
+	else:
+		transparency = 1
+	
 	# When the body does not have enough health, destroy it.
 	if health <= 0:
 		queue_free()
@@ -71,10 +84,14 @@ func _draw():
 	# have to supply 0 to be the parameter.
 	
 	# Draw the outer circle.
-	draw_circle(Vector2.ZERO, radius, Color("#616161"))
+	draw_circle(Vector2.ZERO, radius, 
+		# Apply transparency by interpolating from transparent.
+		Color.transparent.linear_interpolate(Color("#616161"), transparency))
 	
 	# Draw the inner circle.
-	draw_circle(Vector2.ZERO, radius - 4, Color("#2196f3"))
+	draw_circle(Vector2.ZERO, radius - 4, 
+		# Apply transparency by interpolating from transparent.
+		Color.transparent.linear_interpolate(inner_circle_colour, transparency))
 
 
 # Called when another rigid body enters the area.
