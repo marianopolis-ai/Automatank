@@ -29,7 +29,7 @@ var inner_circle_colour: Color = Color("#2196f3")
 var transparency: float = 1.0
 # Bodies with health ratios less than this value will appear more and more
 # transparent as it loses health.
-var transparency_threshold: float = 0.5
+var transparency_threshold: float = 0.25
 # The size of the body. Can be overridden by inheritors.
 var radius: float = 64.0
 
