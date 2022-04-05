@@ -42,7 +42,8 @@ var damage_group: int = 0
 
 
 func _ready():
-	pass # Replace with function body.
+	# Set inertia to infinity so the body never rotates.
+	inertia = INF
 
 
 func set_max_health(new_max_health: float):
