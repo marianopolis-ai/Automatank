@@ -4,5 +4,9 @@
 [ext_resource path="res://scripts/Bullet.gd" type="Script" id=2]
 
 [node name="Bullet" instance=ExtResource( 1 )]
+contacts_reported = 3
+contact_monitor = true
 linear_damp = 0.0
 script = ExtResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_bullet_body_entered"]
