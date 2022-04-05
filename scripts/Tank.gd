@@ -7,7 +7,7 @@ extends "res://scripts/CircularBody.gd"
 var movement_strength: float = 1000.0
 # Initial speed of the bullets that the tank shoots.
 # TODO: allow upgrades for bullet speed.
-var bullet_speed: float = 500.0
+var bullet_speed: float = 750.0
 # Initial health of the bullet that the tank shoots.
 # TODO: allow upgrades for bullet health.
 var bullet_health: float = 40.0
