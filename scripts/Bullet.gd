@@ -3,6 +3,11 @@ extends "res://scripts/CircularBody.gd"
 # Global constant: bullet size
 var bullet_radius: float = 24.0
 
+# The amount of health that a bullet loses per second by itself.
+# Ensures that bullets don't live for too long over too much of a distance, to
+# encourage bullet-related upgrades.
+var health_loss: float = 10
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Bullets do not need to be seen like tanks, so they can start becoming
@@ -11,6 +16,10 @@ func _ready():
 	
 	# Update the radius.
 	set_radius(bullet_radius)
+
+
+func _process(delta):
+	health -= health_loss * delta
 
 
 # When another body enters.
