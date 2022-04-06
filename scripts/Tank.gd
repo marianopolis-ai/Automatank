@@ -15,8 +15,11 @@ var bullet_health: float = 40.0
 # TODO: allow upgrades for max health.
 var tank_max_health: float = 100.0
 # Regeneration of the tank's health per second.
-# TODO: allow upgrades for regen
+# TODO: allow upgrades for regen.
 var regen: float = 2.0
+# The cooldown for shooting bullets, in seconds.
+# TODO: Allow upgrades for cooldown.
+var bullet_cooldown: float = 1.0
 
 
 # --------- Appearance ---------
@@ -36,6 +39,9 @@ var cannon_orientation = 0.0
 var intended_acceleration: Vector2 = Vector2.ZERO
 # Normalised actual acceleration of the tank.
 var actual_acceleration: Vector2 = Vector2.ZERO
+# Remaining cooldown until the next bullet is available, in seconds.
+# All tanks start with a cooldown of 3 seconds when they enter the game.
+var remaining_bullet_cooldown = 3.0
 
 var bullet_scene = preload("res://Bullet.tscn")
 
@@ -56,6 +62,9 @@ func _process(delta: float):
 	
 	# Heal and clamp to max health.
 	health = clamp(health + regen * delta * regen_factor, 0, max_health)
+	
+	# Tick down the shooting cooldown.
+	remaining_bullet_cooldown -= delta
 
 
 # On physics update.
@@ -139,23 +148,36 @@ func _draw():
 	), Color.red.linear_interpolate(Color.green, health / max_health).darkened(0.2))
 
 
+# Returns true if the next bullet is available.
+func bullet_available() -> bool:
+	return remaining_bullet_cooldown <= 0.0
+
 # Spawns a bullet that belongs to the tank. Direction in radians.
-func shoot(direction: float):
-	# Make a new bullet
-	var bullet = bullet_scene.instance()
-	
-	# Put it ahead of the tank
-	bullet.set_position(position + Vector2.RIGHT.rotated(direction) * radius * 1.5)
-	# Give it an initial velocity
-	bullet.linear_velocity = Vector2.RIGHT.rotated(direction) * bullet_speed
-	
-	# Give it this tank's damage group.
-	bullet.damage_group = damage_group
-	# Copy the tank's colour
-	bullet.inner_circle_colour = inner_circle_colour
-	
-	# Give it its health
-	bullet.set_max_health(bullet_health)
-	
-	# Spawn the bullet
-	get_tree().get_root().add_child(bullet)
+# Returns true if a bullet has been shot.
+func shoot(direction: float) -> bool:
+	if bullet_available():
+		# Make a new bullet
+		var bullet = bullet_scene.instance()
+		
+		# Put it ahead of the tank
+		bullet.set_position(position + Vector2.RIGHT.rotated(direction) * radius * 1.5)
+		# Give it an initial velocity
+		bullet.linear_velocity = Vector2.RIGHT.rotated(direction) * bullet_speed
+		
+		# Give it this tank's damage group.
+		bullet.damage_group = damage_group
+		# Copy the tank's colour
+		bullet.inner_circle_colour = inner_circle_colour
+		
+		# Give it its health
+		bullet.set_max_health(bullet_health)
+		
+		# Spawn the bullet
+		get_tree().get_root().add_child(bullet)
+		
+		# Reset cooldown
+		remaining_bullet_cooldown = bullet_cooldown
+		
+		return true
+	else:
+		return false
