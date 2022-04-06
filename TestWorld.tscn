@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://PlayerControlledTank.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tank.tscn" type="PackedScene" id=2]
 [ext_resource path="res://maps/FreeForAll.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Environment" id=1]
+glow_enabled = true
 
 [node name="Node2D" type="Node"]
 
@@ -27,3 +30,6 @@ position = Vector2( -1728, 824 )
 position = Vector2( -1728, -824 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
