@@ -19,6 +19,10 @@ window/size/width=1366
 window/size/height=768
 window/size/resizable=false
 
+[gdnative]
+
+singletons=[ "res://pythonscript.gdnlib" ]
+
 [global]
 
 collision=false
