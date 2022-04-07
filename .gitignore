@@ -8,3 +8,4 @@ export_presets.cfg
 
 # Don't upload the python addon to the project.
 addons
+__pycache__
