@@ -27,6 +27,7 @@ var bullet_cooldown: float = 1.0
 # participate in collision.
 var cannon_half_width: float = 24.0
 var cannon_length: float = 128.0
+var tank_name: String = "Unnamed Tank"
 
 # --------- Colours ---------
 var cannon_fill_colour: Color = Color("#9e9e9e")
@@ -43,7 +44,10 @@ var actual_acceleration: Vector2 = Vector2.ZERO
 # All tanks start with a cooldown of 3 seconds when they enter the game.
 var remaining_bullet_cooldown = 3.0
 
+# --------- Resources ---------
 var bullet_scene = preload("res://Bullet.tscn")
+var name_format_string = "[color=black][center]%s[/center][/color]"
+
 
 func _ready():
 	# Define the damage group by the tank's id to ensure uniqueness.
@@ -151,6 +155,13 @@ func _draw():
 # Returns true if the next bullet is available.
 func bullet_available() -> bool:
 	return remaining_bullet_cooldown <= 0.0
+
+
+func set_name(new_name):
+	tank_name = new_name
+	# Update the name on the label
+	$NameLabel.bbcode_text = name_format_string % new_name
+
 
 # Spawns a bullet that belongs to the tank. Direction in radians.
 # Returns true if a bullet has been shot.
