@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://CircularBody.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Tank.gd" type="Script" id=2]
+[ext_resource path="res://fonts/Roboto.tres" type="DynamicFont" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 64.0
@@ -9,7 +10,7 @@ radius = 64.0
 [sub_resource type="CircleShape2D" id=2]
 radius = 64.0
 
-[node name="Tank" instance=ExtResource( 1 )]
+[node name="Tank" groups=["tank"] instance=ExtResource( 1 )]
 z_index = 1
 script = ExtResource( 2 )
 
@@ -18,3 +19,13 @@ shape = SubResource( 1 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 2 )
+
+[node name="NameLabel" type="RichTextLabel" parent="." index="2"]
+margin_left = -256.0
+margin_top = 104.0
+margin_right = 256.0
+margin_bottom = 184.0
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[color=black][center]Unnamed Tank[/center][/color]"
+text = "Unnamed Tank"
