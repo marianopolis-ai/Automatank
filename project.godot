@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="FlushedMega"
+config/name="Automatank"
 config/icon="res://icon.png"
 
 [display]
