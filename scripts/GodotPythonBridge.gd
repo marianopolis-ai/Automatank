@@ -18,10 +18,10 @@ signal tank_update
 # stat by 15% and spending 5 improves the stat by 100%, the inverse applies for
 # bullet cooldown.
 var tank_speed_upgrade_factor: float = 1.15
-var bullet_speed_upgrade_factor: float = 1.15
-var bullet_health_upgrade_factor: float = 1.15
+var bullet_speed_upgrade_factor: float = 1.2
+var bullet_health_upgrade_factor: float = 1.2
 var tank_health_upgrade_factor: float = 1.15
-var regen_upgrade_factor: float = 1.15
+var regen_upgrade_factor: float = 1.25
 # Bullet cooldown has <1 factor because reducing cooldown is beneficial.
 var bullet_cooldown_factor: float = 0.87
 

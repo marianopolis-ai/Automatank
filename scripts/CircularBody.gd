@@ -19,7 +19,7 @@ var health: float = 100.0
 var max_health: float = 100.0
 # Global constant: the damage that this body *takes* per second per body that it's 
 # overlapping with.
-var collision_damage: float = 150.0
+var collision_damage: float = 200.0
 
 
 # --------- Appearance ---------
