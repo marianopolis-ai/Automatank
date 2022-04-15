@@ -28,18 +28,27 @@ class TestPythonScript(Node):
 	
 	# The tank node itself.
 	tank_node = None
+	# The script controller of the tank.
+	controller = None
 
-
-	# Called when the tank initialises.
-	def _receive_initialise_script(self):
-		# Various upgrades here..
-		tank_speed_points = 5
+	# Called when the tank initialises, with the parameter as the python script
+	# that codes for this tank
+	def _receive_initialise_script(self, python_script):
+		# Create a namespace for the class itself.
+		namespace = {}
+		# Run the Python script with the namespace to create the controller class.
+		# The passed string from Godot is actually a GDString not an str, 
+		# convert it here.
+		exec(str(python_script), namespace)
+		# The controller should be defined after the exec command.
+		self.controller = namespace["TankController"]()
+		
+		# Run the controller's initialisation function and pass self as the controller.
+		self.controller.receive_initialise(self)
 		
 		# Check the integrity of upgrades here
 		self.tank_node = self.get_parent()
 		self.damage_group = self.tank_node.damage_group
-		
-		print(self.get_game_world())
 		
 		# After customisation have been completed, send the numbers as a signal.
 		self.call("emit_signal", "initialisation_complete", 
@@ -50,9 +59,8 @@ class TestPythonScript(Node):
 	
 	# Called when the tank updates.
 	def _receive_update(self):
-		self.get_game_world()
-		self.accelerate(Vector2(-1, 0))
-		self.shoot(0)
+		# Send the update to the script.
+		self.controller.receive_update(self, self.get_game_world())
 
 
 	# Obtains a description of the game's world.

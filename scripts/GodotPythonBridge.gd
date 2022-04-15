@@ -35,16 +35,28 @@ var regen_points: int = 0
 var bullet_cooldown_points: int = 0
 
 
+# ----- Script-Related -----
+var script_source: String = ""
+# The script gets updated every 0.25 seconds.
+var remaining_update_cooldown: float = 0.0
+var update_cooldown: float = 0.25
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Request the python script to spend the skill points.
-	emit_signal("initialise_script")
+	emit_signal("initialise_script", script_source)
 
 
 # Called when the node updates.
 func _process(delta: float):
-	# Request the tank to update as well.
-	emit_signal("tank_update")
+	remaining_update_cooldown -= delta
+	if remaining_update_cooldown < 0.0:
+		remaining_update_cooldown = update_cooldown
+		# Request the tank to update as well.
+		clear_acceleration()
+		emit_signal("tank_update")
+
 
 # Signal triggered when the python script finishes spending skill points
 # and configuring the tank.
