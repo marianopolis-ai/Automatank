@@ -184,7 +184,7 @@ func shoot(direction: float) -> bool:
 		bullet.set_max_health(bullet_health)
 		
 		# Spawn the bullet
-		get_tree().get_root().add_child(bullet)
+		get_parent().add_child(bullet)
 		
 		# Reset cooldown
 		remaining_bullet_cooldown = bullet_cooldown
