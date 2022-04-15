@@ -8,6 +8,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	clear_acceleration()
+	
 	# Update the tank's orientation based on the player's mouse position.
 	cannon_orientation = (get_global_mouse_position() - position).angle()
 	

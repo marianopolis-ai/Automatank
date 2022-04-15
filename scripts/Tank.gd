@@ -81,7 +81,7 @@ func _physics_process(delta: float):
 	
 	
 	# Reset the acceleration after it has been applied.
-	clear_acceleration()
+	# clear_acceleration()
 
 
 # Accelerate function, intended to be exposed for SCRIPT control.
