@@ -45,7 +45,7 @@ var actual_acceleration: Vector2 = Vector2.ZERO
 var remaining_bullet_cooldown = 3.0
 
 # --------- Resources ---------
-var bullet_scene = preload("res://Bullet.tscn")
+var bullet_scene = preload("res://scenes/Bullet.tscn")
 var name_format_string = "[color=black][center]%s[/center][/color]"
 
 

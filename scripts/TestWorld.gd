@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var script_tank_scene = preload("res://ScriptControlledTank.tscn")
+var script_tank_scene = preload("res://scenes/ScriptControlledTank.tscn")
 
 
 func _ready():

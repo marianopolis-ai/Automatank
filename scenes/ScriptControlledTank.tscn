@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Tank.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scripts/GodotPythonBridge.gd" type="Script" id=2]
-[ext_resource path="res://scripts/GodotPythonBridge.py" type="Script" id=3]
+[ext_resource path="res://scripts/GodotPythonBridge.py" type="Script" id=1]
+[ext_resource path="res://scenes/Tank.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/GodotPythonBridge.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 64.0
@@ -10,8 +10,8 @@ radius = 64.0
 [sub_resource type="CircleShape2D" id=2]
 radius = 64.0
 
-[node name="ScriptTank" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="ScriptTank" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="RepulsionArea" index="0"]
 shape = SubResource( 1 )
@@ -20,7 +20,7 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="PythonScriptHolder" type="Node" parent="." index="2"]
-script = ExtResource( 3 )
+script = ExtResource( 1 )
 
 [connection signal="initialise_script" from="." to="PythonScriptHolder" method="_receive_initialise_script"]
 [connection signal="tank_update" from="." to="PythonScriptHolder" method="_receive_update"]
