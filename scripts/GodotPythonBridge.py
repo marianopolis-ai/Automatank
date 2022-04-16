@@ -50,6 +50,9 @@ class TestPythonScript(Node):
 			
 			# Run the controller's initialisation function and pass self as the controller.
 			self.controller.receive_initialise(self)
+			
+			# Check the upgrades.
+			self.validate_upgrades()
 		except Exception as e:
 			# Pass exception via signal.
 			self.call("emit_signal", "error", str(e))
@@ -64,6 +67,14 @@ class TestPythonScript(Node):
 			self.tank_speed_points, self.bullet_speed_points, self.tank_health_points,
 			self.bullet_health_points, self.regen_points, self.bullet_cooldown_points,
 			self.hex_colour, self.tank_name)
+	
+	
+	# Checks if the upgrade points are valid.
+	def validate_upgrades(self):
+		if self.tank_speed_points > 5 or self.bullet_speed_points > 5 or self.tank_health_points > 5 or self.bullet_health_points > 5 or self.regen_points > 5 or self.bullet_cooldown_points > 5:
+			raise Exception("You may not spend more than 5 points on any given stat.")
+		if self.tank_speed_points + self.bullet_speed_points + self.tank_health_points + self.bullet_health_points + self.regen_points + self.bullet_cooldown_points > 10:
+			raise Exception("You may not spend more than 10 skill points in total.")
 	
 	
 	# Called when the tank updates.
