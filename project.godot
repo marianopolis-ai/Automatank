@@ -27,6 +27,11 @@ singletons=[ "res://pythonscript.gdnlib" ]
 [global]
 
 collision=false
+theme=false
+
+[gui]
+
+theme/custom="res://game_theme.tres"
 
 [input]
 
