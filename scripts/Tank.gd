@@ -3,22 +3,16 @@ extends "res://scripts/CircularBody.gd"
 
 # --------- Stats ---------
 # Strength of the movement of the tank.
-# TODO: allow upgrades for movement strength.
 var movement_strength: float = 1000.0
 # Initial speed of the bullets that the tank shoots.
-# TODO: allow upgrades for bullet speed.
 var bullet_speed: float = 750.0
 # Initial health of the bullet that the tank shoots.
-# TODO: allow upgrades for bullet health.
 var bullet_health: float = 25.0
 # Initial health of the tank.
-# TODO: allow upgrades for max health.
 var tank_max_health: float = 100.0
 # Regeneration of the tank's health per second.
-# TODO: allow upgrades for regen.
 var regen: float = 2.0
 # The cooldown for shooting bullets, in seconds.
-# TODO: Allow upgrades for cooldown.
 var bullet_cooldown: float = 1.0
 
 
