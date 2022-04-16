@@ -34,6 +34,9 @@ func _receive_files_dropped(file_paths: PoolStringArray, _screen: int):
 		tank.set_position(get_global_mouse_position() - position)
 		
 		add_child(tank)
+	
+	# Hide the tip image upon receiving a file drop.
+	$TipImageHolder/TipImage.hide()
 
 
 func _spawn_dummy():
