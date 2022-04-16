@@ -56,10 +56,10 @@ func _ready():
 func _process(delta: float):
 	# The default maximum velocity of tanks is approximately 500.
 	# Make it such that tanks regen a lot less when they are moving.
-	var regen_factor = clamp(1 - linear_velocity.length_squared() / 50000, 0, 1)
+	# var regen_factor = clamp(1 - linear_velocity.length_squared() / 50000, 0, 1)
 	
 	# Heal and clamp to max health.
-	health = clamp(health + regen * delta * regen_factor, 0, max_health)
+	health = clamp(health + regen * delta, 0, max_health)
 	
 	# Tick down the shooting cooldown.
 	remaining_bullet_cooldown -= delta
