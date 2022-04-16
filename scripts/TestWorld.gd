@@ -9,6 +9,10 @@ var tank_scene = preload("res://scenes/Tank.tscn")
 var rng = RandomNumberGenerator.new()
 
 
+# Relay errors.
+signal script_error
+
+
 func _ready():
 	# Randomise the RNG.
 	rng.randomize()
@@ -33,10 +37,20 @@ func _receive_files_dropped(file_paths: PoolStringArray, _screen: int):
 		# Put it where the mouse is.
 		tank.set_position(get_global_mouse_position() - position)
 		
+		# Connect the tank's error signal to this.
+		tank.connect("script_error", self, "_receive_script_error")
+		
 		add_child(tank)
 	
 	# Hide the tip image upon receiving a file drop.
 	$TipImageHolder/TipImage.hide()
+
+
+func _receive_script_error(tank, error):
+	# Immediately remove the tank.
+	tank.queue_free()
+	# And emit the error.
+	emit_signal("script_error", error)
 
 
 func _spawn_dummy():

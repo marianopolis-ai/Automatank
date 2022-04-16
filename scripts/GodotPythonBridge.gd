@@ -11,6 +11,8 @@ extends "res://scripts/Tank.gd"
 signal initialise_script
 # Signal sent when the tank updates.
 signal tank_update
+# Signal sent to relay errors caused by the script with arguments (tank, error).
+signal script_error
 
 # ------ Upgrade Factors ------
 # A given stat is multiplied by the factor once per each point spent on that skill.
@@ -96,3 +98,7 @@ func _on_script_accelerate(acceleration: Vector2):
 
 func _on_script_shoot(angle: float):
 	shoot(angle)
+
+
+func _on_script_error(error: String):
+	emit_signal("script_error", self, error)

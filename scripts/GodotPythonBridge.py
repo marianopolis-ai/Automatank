@@ -4,12 +4,15 @@ from godot import *
 # https://github.com/touilleMan/godot-python/issues/199
 @exposed
 class TestPythonScript(Node):
-	# Signal for finishing the initialisation step.
+	# Signal for finishing the initialisation step, has arguments related to
+	# all initial stats.
 	initialisation_complete = signal()
-	# Signal for accelerating the tank.
+	# Signal for accelerating the tank, has a vector argument.
 	accelerate_tank = signal()
-	# Signal for shooting.
+	# Signal for shooting, has an angle argument.
 	shoot_bullet = signal()
+	# Signal for errors, an error argument.
+	error = signal()
 	
 	# The tank's own damage group, used to check if different bodies are friendly.
 	damage_group = 0
@@ -36,15 +39,21 @@ class TestPythonScript(Node):
 	def _receive_initialise_script(self, python_script):
 		# Create a namespace for the class itself.
 		namespace = {}
-		# Run the Python script with the namespace to create the controller class.
-		# The passed string from Godot is actually a GDString not an str, 
-		# convert it here.
-		exec(str(python_script), namespace)
-		# The controller should be defined after the exec command.
-		self.controller = namespace["TankController"]()
 		
-		# Run the controller's initialisation function and pass self as the controller.
-		self.controller.receive_initialise(self)
+		try: 
+			# Run the Python script with the namespace to create the controller class.
+			# The passed string from Godot is actually a GDString not an str, 
+			# convert it here.
+			exec(str(python_script), namespace)
+			# The controller should be defined after the exec command.
+			self.controller = namespace["TankController"]()
+			
+			# Run the controller's initialisation function and pass self as the controller.
+			self.controller.receive_initialise(self)
+		except Exception as e:
+			# Pass exception via signal.
+			self.call("emit_signal", "error", str(e))
+		
 		
 		# Check the integrity of upgrades here
 		self.tank_node = self.get_parent()
@@ -59,8 +68,11 @@ class TestPythonScript(Node):
 	
 	# Called when the tank updates.
 	def _receive_update(self):
-		# Send the update to the script.
-		self.controller.receive_update(self, self.get_game_world())
+		try:
+			# Send the update to the script.
+			self.controller.receive_update(self, self.get_game_world())
+		except Exception as e:
+			self.call("emit_signal", "error", str(e))
 
 
 	# Obtains a description of the game's world.

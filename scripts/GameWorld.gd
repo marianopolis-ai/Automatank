@@ -13,7 +13,11 @@ var check_cooldown: float = 0
 
 onready var instruction_label = $StartingInstructions/CenterContainer/InstructionLabel
 
+
 signal game_over
+# Error relay signal
+signal script_errpr
+
 
 func _ready():
 	# The game world starts paused, waiting for tanks to be dragged in.
@@ -50,6 +54,8 @@ func add_tank(script_source: String):
 	# Put it at the next anchor.
 	tank.set_position(anchors[tanks_count].position)
 	
+	tank.connect("script_error", self, "_receive_script_error")
+	
 	# Then append the tank.
 	add_child(tank)
 	
@@ -64,6 +70,13 @@ func add_tank(script_source: String):
 		instruction_label.queue_free()
 		
 		game_started = true
+
+
+func _receive_script_error(tank, error):
+	# Immediately remove the tank.
+	tank.queue_free()
+	# And emit the error.
+	emit_signal("script_error", error)
 
 
 func _process(delta):

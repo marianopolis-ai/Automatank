@@ -19,6 +19,9 @@ func _start_game():
 	# Connect the game over signal to show the game over screen.
 	game_world.connect("game_over", $HUD, "_show_game_over_screen")
 	
+	# Connect the erorr signal to the HUD.
+	game_world.connect("script_error", $HUD, "display_error")
+	
 	# And attach it to the node.
 	add_child(game_world)
 
@@ -26,6 +29,10 @@ func _start_game():
 func _start_test():
 	# Create a test world.
 	test_world = test_world_scene.instance()
+	
+	# Connect the erorr signal to the HUD.
+	test_world.connect("script_error", $HUD, "display_error")
+	
 	# And attach it to the node.
 	add_child(test_world)
 

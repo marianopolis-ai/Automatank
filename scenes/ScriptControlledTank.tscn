@@ -22,11 +22,9 @@ shape = SubResource( 2 )
 [node name="PythonScriptHolder" type="Node" parent="." index="2"]
 script = ExtResource( 1 )
 
-[node name="NameLabel" parent="." index="3"]
-text = "[color=black][center]Unnamed Tank[/center][/color]"
-
 [connection signal="initialise_script" from="." to="PythonScriptHolder" method="_receive_initialise_script"]
 [connection signal="tank_update" from="." to="PythonScriptHolder" method="_receive_update"]
 [connection signal="accelerate_tank" from="PythonScriptHolder" to="." method="_on_script_accelerate"]
+[connection signal="error" from="PythonScriptHolder" to="." method="_on_script_error"]
 [connection signal="initialisation_complete" from="PythonScriptHolder" to="." method="_on_script_initialisation_complete"]
 [connection signal="shoot_bullet" from="PythonScriptHolder" to="." method="_on_script_shoot"]
