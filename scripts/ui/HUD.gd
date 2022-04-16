@@ -62,3 +62,15 @@ func _start_test():
 	$PauseButton.show()
 	
 	emit_signal("start_test")
+
+
+func display_error(error: String):
+	# Set the label's text as the error.
+	$ErrorContainer/ErrorLabel.text = "Error: " + error
+	# Then show the container.
+	$ErrorContainer.show()
+	
+	# Wait for 5 seconds.
+	yield(get_tree().create_timer(5.0), "timeout")
+	# Then hide the container.
+	$ErrorContainer.hide()
