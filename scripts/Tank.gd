@@ -10,7 +10,7 @@ var movement_strength: float = 1000.0
 var bullet_speed: float = 750.0
 # Initial health of the bullet that the tank shoots.
 # TODO: allow upgrades for bullet health.
-var bullet_health: float = 40.0
+var bullet_health: float = 25.0
 # Initial health of the tank.
 # TODO: allow upgrades for max health.
 var tank_max_health: float = 100.0
