@@ -4,6 +4,19 @@ extends "res://scripts/Tank.gd"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_name("Player")
+	apply_upgrades()
+
+
+# Use the points to upgrade the tank.
+func apply_upgrades():
+	movement_strength *= 2
+	bullet_speed *= 2
+	bullet_health *= 2
+	tank_max_health *= 2
+	# Update accordingly
+	set_max_health(tank_max_health)
+	regen *= 2
+	bullet_cooldown *= 0.5
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
