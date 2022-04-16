@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/ui/HUD.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/PauseMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fonts/Roboto.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/ui/MainMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/ui/GameOverMenu.tscn" type="PackedScene" id=5]
+
+[node name="HUD" type="CanvasLayer"]
+pause_mode = 2
+layer = 2
+script = ExtResource( 1 )
+
+[node name="PauseButton" type="Button" parent="."]
+visible = false
+margin_left = 1216.0
+margin_top = 16.0
+margin_right = 1346.0
+margin_bottom = 77.0
+custom_fonts/font = ExtResource( 3 )
+text = "Pause"
+
+[node name="MainMenu" parent="." instance=ExtResource( 4 )]
+
+[node name="PauseMenu" parent="." instance=ExtResource( 2 )]
+visible = false
+
+[node name="GameOver" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[connection signal="pressed" from="PauseButton" to="." method="_pause"]
+[connection signal="open_manual" from="MainMenu" to="." method="_open_manual"]
+[connection signal="start_game" from="MainMenu" to="." method="_start_game"]
+[connection signal="start_test" from="MainMenu" to="." method="_start_test"]
+[connection signal="home" from="PauseMenu" to="." method="_return_home"]
+[connection signal="quit" from="PauseMenu" to="." method="_quit_game"]
+[connection signal="resume" from="PauseMenu" to="." method="_resume_game"]
+[connection signal="home" from="GameOver" to="." method="_return_home"]
