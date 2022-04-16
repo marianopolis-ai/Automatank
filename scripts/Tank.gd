@@ -166,6 +166,8 @@ func set_name(new_name):
 # Spawns a bullet that belongs to the tank. Direction in radians.
 # Returns true if a bullet has been shot.
 func shoot(direction: float) -> bool:
+	cannon_orientation = direction
+	
 	if bullet_available():
 		# Make a new bullet
 		var bullet = bullet_scene.instance()
