@@ -20,8 +20,16 @@ func _quit_game():
 
 
 func _resume_game():
-	# Unpause the game
-	get_tree().paused = false
+	var game_world = get_parent().game_world
+	# The game can only be unpaused if it has started already.
+	if game_world:
+		if game_world.game_started:
+			# Unpause the game
+			get_tree().paused = false
+	else:
+		# The game can be freely unpaused in test mode.
+		get_tree().paused = false
+
 	# Hide the pause menu.
 	$PauseMenu.hide()
 

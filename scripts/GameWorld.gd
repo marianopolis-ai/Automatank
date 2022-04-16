@@ -6,6 +6,7 @@ var script_tank_scene = preload("res://scenes/ScriptControlledTank.tscn")
 # Variables used to spawn tanks.
 var anchors = []
 var tanks_count: int = 0
+var game_started = false
 
 # Checks for winner every second.
 var check_cooldown: float = 0
@@ -56,10 +57,13 @@ func add_tank(script_source: String):
 	tanks_count += 1
 	instruction_label.text = "Drag %s TankController files into the window to start the game." % (anchors.size() - tanks_count)
 	
-	# If enough tanks are in the game, start the game and remove the label.
+	# If enough tanks are in the game, start the game.
 	if tanks_count == anchors.size():
 		get_tree().paused = false
+		# Remove the label.
 		instruction_label.queue_free()
+		
+		game_started = true
 
 
 func _process(delta):
