@@ -5,6 +5,16 @@ signal start_game
 signal start_test
 signal clear_game
 
+
+# Rng for random rickroll.
+var rng = RandomNumberGenerator.new()
+
+
+func _ready():
+	# Randomise the rng.
+	rng.randomize()
+
+
 func _return_home():
 	$PauseButton.hide()
 	$PauseMenu.hide()
@@ -47,7 +57,12 @@ func _show_game_over_screen(winner: String):
 
 
 func _open_manual():
-	pass # Replace with function body.
+	if rng.randf() < 0.1:
+		# 10% chance to rickroll.
+		OS.shell_open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+	else:
+		# Open the link to the manual.
+		OS.shell_open("https://jerry-licious.github.io/automatank/manual.pdf")
 
 
 func _start_game():
