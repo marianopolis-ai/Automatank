@@ -26,7 +26,7 @@ func _return_home():
 
 
 func _quit_game():
-	pass # Replace with function body.
+	get_tree().quit()
 
 
 func _resume_game():
