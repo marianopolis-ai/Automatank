@@ -86,6 +86,6 @@ func display_error(error: String):
 	$ErrorContainer.show()
 	
 	# Wait for 5 seconds.
-	yield(get_tree().create_timer(5.0), "timeout")
+	yield(get_tree().create_timer(15.0), "timeout")
 	# Then hide the container.
 	$ErrorContainer.hide()
