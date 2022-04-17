@@ -62,7 +62,7 @@ func _process(delta: float):
 
 # Signal triggered when the python script finishes spending skill points
 # and configuring the tank.
-func _on_script_initialisation_complete(tsp, bsp, bhp, thp, rp, bcp, hc, n):
+func _on_script_initialisation_complete(tsp, bsp, thp, bhp, rp, bcp, hc, n):	
 	# Copy the stats
 	tank_speed_points = tsp
 	bullet_speed_points = bsp
