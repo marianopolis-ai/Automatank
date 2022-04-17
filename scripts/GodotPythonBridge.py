@@ -45,7 +45,7 @@ class TestPythonScript(Node):
 			# Run the Python script with the namespace to create the controller class.
 			# The passed string from Godot is actually a GDString not an str, 
 			# convert it here.
-			exec(str(python_script), namespace)
+			exec(compile(str(python_script), "tank", "exec"), namespace)
 			# The controller should be defined after the exec command.
 			self.controller = namespace["TankController"]()
 			

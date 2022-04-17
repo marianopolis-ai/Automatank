@@ -39,9 +39,9 @@ var bullet_cooldown_points: int = 0
 
 # ----- Script-Related -----
 var script_source: String = ""
-# The script gets updated every 0.25 seconds.
+# The script gets updated every 0.1 seconds.
 var remaining_update_cooldown: float = 0.0
-var update_cooldown: float = 0.25
+var update_cooldown: float = 0.1
 
 
 # Called when the node enters the scene tree for the first time.
