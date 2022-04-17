@@ -1,5 +1,6 @@
-from godot import exposed, export, signal
+import traceback
 from godot import *
+
 
 # https://github.com/touilleMan/godot-python/issues/199
 @exposed
@@ -55,7 +56,7 @@ class TestPythonScript(Node):
 			self.validate_upgrades()
 		except Exception as e:
 			# Pass exception via signal.
-			self.call("emit_signal", "error", str(e))
+			self.call("emit_signal", "error", traceback.format_exc())
 		
 		
 		# Check the integrity of upgrades here
@@ -83,7 +84,7 @@ class TestPythonScript(Node):
 			# Send the update to the script.
 			self.controller.receive_update(self, self.get_game_world())
 		except Exception as e:
-			self.call("emit_signal", "error", str(e))
+			self.call("emit_signal", "error", traceback.format_exc())
 
 
 	# Obtains a description of the game's world.
