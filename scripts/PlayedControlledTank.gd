@@ -5,6 +5,9 @@ extends "res://scripts/Tank.gd"
 func _ready():
 	set_name("Player")
 	apply_upgrades()
+	
+	# All player tanks have the same damage group.
+	damage_group = 0
 
 
 # Use the points to upgrade the tank.
