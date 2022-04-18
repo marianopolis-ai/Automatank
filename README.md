@@ -2,7 +2,7 @@
 
 Automatank is a **programming** game where players write scripts to purchase **upgrades** and **control** tanks to be the last one standing! 
 
-See a comprehensive guide about the game's mechanics and scripting by paying a visit to the game's [manual](jerry-licious.github.io/automatank/manual.pdf), and download the game in the [releases](https://github.com/marianopolis-ai/Automatank/releases).
+See a comprehensive guide about the game's mechanics and scripting by paying a visit to the game's [manual](https://jerry-licious.github.io/automatank/manual.pdf), and download the game in the [releases](https://github.com/marianopolis-ai/Automatank/releases).
 
 
 
